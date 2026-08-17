@@ -158,11 +158,11 @@
             <p class="text-xs text-stone-400">Vi preghiamo gentilmente di rispondere entro il 30 Aprile 2027</p>
         </div>
 
-        <form action="https://formsubmit.co/gianluca.mack@gmail.com" method="POST" class="space-y-6">
-           
+        
+        <!-- Configurazione FormSubmit con invio JSON diretto al Webhook di Make -->
+        <form action="https://formsubmit.co" method="POST" class="space-y-6" id="rsvpForm">
             <input type="text" name="_honey" style="display:none">
-            <input type="hidden" name="_next" value="https://github.io">
-            <!-- Aggiungiamo anche questo: elimina il controllo dei bot così l'invio è istantaneo -->
+        <!-- Disattiva il captcha per evitare blocchi agli invitati -->
             <input type="hidden" name="_captcha" value="false">
 
             <!-- Nome e Cognome -->
@@ -211,6 +211,34 @@
             
         </form>
     </section>
+    <script>
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Spedisce i dati a FormSubmit via AJAX
+            fetch(this.action, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Invia una copia speculare in background al tuo Webhook di Make
+                return fetch('https://hook.eu1.make.com/35t9rjkoe91an8nos2rfgpcwglqlajrj', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            })
+            .then(() => {
+                alert('Conferma inviata con successo! Grazie.');
+                window.location.reload();
+            })
+            .catch(error => console.error('Errore:', error));
+        });
+    </script>
 
 </body>
 </html>
