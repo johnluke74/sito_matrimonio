@@ -211,24 +211,24 @@
             
         </form>
     </section>
-    <script>
+        <script>
         document.getElementById('rsvpForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
             
-            // Spedisce i dati a FormSubmit via AJAX
-            fetch(this.action, {
+            // 1. Spedisce IMMEDIATAMENTE i dati in background a Make
+            fetch('https://make.com', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            .then(response => response.json())
-            .then(result => {
-                // Invia una copia speculare in background al tuo Webhook di Make
-                return fetch('https://hook.eu1.make.com/35t9rjkoe91an8nos2rfgpcwglqlajrj', {
+            .then(() => {
+                // 2. Una volta inviato a Make, scarica i dati su FormSubmit per l'email
+                return fetch(this.action, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify(data)
                 });
             })
@@ -236,9 +236,13 @@
                 alert('Conferma inviata con successo! Grazie.');
                 window.location.reload();
             })
-            .catch(error => console.error('Errore:', error));
+            .catch(error => {
+                console.error('Errore durante l\'invio:', error);
+                alert('Si è verificato un errore, riprova.');
+            });
         });
     </script>
+
 
 </body>
 </html>
