@@ -1,0 +1,26 @@
+{
+  "name": "sito_matrimonio",
+  "version": "1.0.0",
+  "description": "Sito del mio matrimonio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnluke74/sito_matrimonio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/johnluke74/sito_matrimonio/issues"
+  },
+  "homepage": "https://github.com/johnluke74/sito_matrimonio#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.5.4",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^4.3.3"
+  }
+}
