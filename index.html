@@ -151,97 +151,68 @@
         </div>
     </section>
 
-    <!-- AGGIORNAMENTO SEZIONE RSVP CON SELEZIONE CANZONI (Sostituisci il vecchio form con questo) -->
+    
+    </section>
+        <!-- 3. SEZIONE RSVP - VERSIONE BLINDATA SENZA JAVASCRIPT -->
     <section class="max-w-xl mx-auto px-6 py-16 bg-white rounded-3xl border border-stone-200/50 shadow-xl my-16 relative">
         <div class="text-center mb-10 space-y-2">
             <h2 class="font-serif text-3xl font-light text-stone-900 tracking-wide">Conferma Presenza</h2>
             <p class="text-xs text-stone-400">Vi preghiamo gentilmente di rispondere entro il 30 Aprile 2027</p>
         </div>
 
-        
-        <!-- Configurazione FormSubmit con invio JSON diretto al Webhook di Make -->
-        <form action="https://formsubmit.co/gianluca.mack@gmail.com" method="POST" class="space-y-6" id="rsvpForm">
+        <!-- Usiamo l'endpoint di FormSubmit diretto che gestisce tutto da solo -->
+        <form action="https://formsubmit.co" method="POST" class="space-y-6">
             <input type="text" name="_honey" style="display:none">
-        <!-- Disattiva il captcha per evitare blocchi agli invitati -->
+            
+            <!-- Questo disattiva il controllo bot per gli invitati -->
             <input type="hidden" name="_captcha" value="false">
+            
+            <!-- Questo dice a FormSubmit di rimandare l'utente alla home del sito dopo l'invio -->
+            <input type="hidden" name="_next" value="https://github.io">
 
-            <!-- Nome e Cognome -->
+            <!-- Campi del Form -->
             <div>
-                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" style="letter-spacing: 0.1em;">Nome e Cognome</label>
-                <input type="text" name="Nome Completo" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
+                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2">Nome e Cognome</label>
+                <input type="text" name="Nome Completo" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm text-stone-900">
             </div>
 
-            <!-- Presenza -->
             <div>
-                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-3" style="letter-spacing: 0.1em;">Parteciperai all'evento?</label>
+                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-3">Parteciperai all'evento?</label>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <label class="flex items-center justify-center p-4 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer hover:border-blue-300 text-sm font-medium text-stone-700 transition-all">
+                    <label class="flex items-center justify-center p-4 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer hover:border-blue-300 text-sm font-medium text-stone-700">
                         <input type="radio" name="Presenza" value="Sì, ci sarò!" required class="mr-2 accent-[#1e90ff]">
                         Sì, con gioia!
                     </label>
-                    <label class="flex items-center justify-center p-4 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer hover:border-blue-300 text-sm font-medium text-stone-500 transition-all">
+                    <label class="flex items-center justify-center p-4 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer hover:border-blue-300 text-sm font-medium text-stone-500">
                         <input type="radio" name="Presenza" value="No, purtroppo no" class="mr-2 accent-stone-400">
                         Non potrò esserci
                     </label>
                 </div>
             </div>
 
-            <!-- Note Alimentari -->
             <div>
-                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" style="letter-spacing: 0.1em;">Esigenze Alimentari / Note</label>
-                <textarea name="Note Alimentari" rows="2" placeholder="Intolleranze, celiachia, menu bambini..." class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900"></textarea>
+                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2">Esigenze Alimentari / Note</label>
+                <textarea name="Note Alimentari" rows="3" placeholder="Intolleranze, celiachia..." class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm text-stone-900"></textarea>
             </div>
 
-            <!-- 🎵 SEZIONE PLAYLIST DJ: Ispirazione ospiti (1-3 Canzoni) -->
             <div class="pt-4 border-t border-stone-100">
-                <label class="block text-xs uppercase tracking-widest font-bold text-[#1e90ff] mb-2" style="letter-spacing: 0.1em;">🎵 Accendi la festa!</label>
-                <p class="text-xs text-stone-400 mb-4">Suggerisci da 1 a 3 canzoni che ti farebbero scendere in pista</p>
+                <label class="block text-xs uppercase tracking-widest font-bold text-[#1e90ff] mb-2">🎵 Accendi la festa!</label>
+                <p class="text-xs text-stone-400 mb-4">Suggerisci da 1 a 3 canzoni per il DJ</p>
                 
                 <div class="space-y-3">
-                    <input type="text" name="Canzone 1" placeholder="1. Titolo e Artista" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
-                    <input type="text" name="Canzone 2" placeholder="2. Titolo e Artista (Opzionale)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
-                    <input type="text" name="Canzone 3" placeholder="3. Titolo e Artista (Opzionale)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
+                    <input type="text" name="Canzone 1" placeholder="1. Titolo e Artista" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm text-stone-900">
+                    <input type="text" name="Canzone 2" placeholder="2. Titolo e Artista (Opzionale)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm text-stone-900">
+                    <input type="text" name="Canzone 3" placeholder="3. Titolo e Artista (Opzionale)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm text-stone-900">
                 </div>
             </div>
 
-            <!-- Bottone di invio coordinato -->
-            <button type="submit" class="w-full py-4 bg-stone-900 text-white text-xs uppercase tracking-widest font-semibold rounded-xl shadow-md hover:bg-[#1e90ff] transition-all duration-300 cursor-pointer" style="letter-spacing: 0.2em;">
+            <button type="submit" class="w-full py-4 bg-stone-900 text-white text-xs uppercase tracking-widest font-semibold rounded-xl shadow-md hover:bg-[#1e90ff] transition-all duration-300">
                 Invia Conferma
             </button>
-            
         </form>
     </section>
-        <script>
-        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-            
-            // 1. Spedisce IMMEDIATAMENTE i dati in background a Make
-            fetch('https://make.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(() => {
-                // 2. Una volta inviato a Make, scarica i dati su FormSubmit per l'email
-                return fetch(this.action, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            })
-            .then(() => {
-                alert('Conferma inviata con successo! Grazie.');
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error('Errore durante l\'invio:', error);
-                alert('Si è verificato un errore, riprova.');
-            });
-        });
-    </script>
+
+    <!-- ⚠️ ATTENZIONE: CANCELLA DEL TUTTO IL VECCHIO TAG <script> DAL FONDO DELLA PAGINA ⚠️ -->
 
 
 </body>
