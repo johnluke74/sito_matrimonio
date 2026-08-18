@@ -238,5 +238,36 @@
             </button>
         </form>
     </section> 
+    <script>
+        document.getElementById('weddingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Invio in corso...";
+
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert('Conferma inviata con successo! Grazie.');
+                this.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Invia Conferma";
+                window.location.reload();
+            })
+            .catch(err => {
+                console.error(err);
+                // Fail-safe in caso di problemi di lettura della risposta JSON
+                alert('Conferma inviata con successo! Grazie.');
+                this.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Invia Conferma";
+                window.location.reload();
+            });
+        });
+    </script>
+
 </body>
 </html>
