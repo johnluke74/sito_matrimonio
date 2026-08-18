@@ -230,7 +230,15 @@
                     <input type="text" name="Canzone 3" placeholder="3. Titolo e Artista (Opzionale)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
                 </div>
             </div>
-
+            <!-- 🆕 Campo Privacy Obbligatorio (GDPR) -->
+            <div class="pt-4 border-t border-stone-100 flex items-start space-x-3">
+                <input type="checkbox" name="Privacy" value="Accettata" required id="privacyCheck" class="mt-1 w-4 h-4 text-[#1e90ff] bg-stone-50 border-stone-200 rounded-sm focus:ring-[#1e90ff] accent-[#1e90ff] cursor-pointer">
+                <label for="privacyCheck" class="text-xs text-stone-500 leading-relaxed cursor-pointer select-none">
+                    Acconsento al trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR). 
+                    I dati verranno utilizzati esclusivamente per l'organizzazione del matrimonio. Titolare del trattamento: Gianluca Mack.
+                </label>
+            </div>
+            <!--====================================================================================== -->
             <!-- Pulsante invio -->
             <button type="submit" class="w-full py-4 bg-stone-900 text-white text-xs uppercase tracking-widest font-semibold rounded-xl shadow-md hover:bg-[#1e90ff] transition-all duration-300 cursor-pointer" style="letter-spacing: 0.2em;">
                 Invia Conferma!
