@@ -287,12 +287,15 @@
             </button>
         </form>
     </section> 
-    <script>
+        <script>
         document.getElementById('weddingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const submitBtn = this.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
             submitBtn.innerText = "Invio in corso...";
+
+            // Cattura la risposta sulla presenza (Sì o No)
+            const presenzaScelta = this.querySelector('input[name="Presenza"]:checked').value;
 
             fetch(this.action, {
                 method: 'POST',
@@ -300,7 +303,15 @@
             })
             .then(res => res.json())
             .then(data => {
-                alert('Conferma inviata con successo! Grazie.');
+                // 🪄 MESSAGGIO DEDICATO SE L'OSPITE VIENE
+                if (presenzaScelta.includes("Sì")) {
+                    alert('Conferma inviata con successo! Grazie, non vediamo l\'ora di festeggiare e brindare insieme a te! 🎉');
+                } 
+                // 🪄 MESSAGGIO DEDICATO SE L'OSPITE RIFIUTA
+                else {
+                    alert('Grazie per averci avvisato! Ci dispiace molto che tu non riesca a venire, ti manderemo sicuramente una foto della giornata! ❤️');
+                }
+                
                 this.reset();
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Invia Conferma";
@@ -308,8 +319,12 @@
             })
             .catch(err => {
                 console.error(err);
-                // Fail-safe in caso di problemi di lettura della risposta JSON
-                alert('Conferma inviata con successo! Grazie.');
+                // Fail-safe di cortesia in caso di ritardi di rete
+                if (presenzaScelta.includes("Sì")) {
+                    alert('Conferma inviata con successo! Grazie, non vediamo l\'ora di festeggiare insieme! 🎉');
+                } else {
+                    alert('Grazie per averci avvisato! Ci dispiace che tu non possa esserci. ❤️');
+                }
                 this.reset();
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Invia Conferma";
@@ -317,6 +332,7 @@
             });
         });
     </script>
+
 
 </body>
 </html>
