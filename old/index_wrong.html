@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Nostro Matrimonio | Gianluca & Cristina</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fcfbfa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            color: #888;
+            padding: 0 5px;
+        }
+        .lang-btn.active {
+            color: #bfa15f;
+        }
+        .header {
+            padding: 60px 20px;
+        }
+        .subtitle {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        h1 {
+            font-family: 'Georgia', serif;
+            font-size: 42px;
+            color: #2b2b2b;
+            margin: 10px 0;
+        }
+        .date {
+            font-size: 28px;
+            color: #bfa15f;
+            margin: 20px 0;
+            font-weight: 300;
+        }
+        .section {
+            padding: 40px 20px;
+            background: white;
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .section-bg {
+            background-color: #f7f5f0;
+        }
+        h2 {
+            font-family: 'Georgia', serif;
+            font-size: 28px;
+            color: #2b2b2b;
+        }
+        h3 {
+            font-size: 20px;
+            color: #bfa15f;
+        }
+        .btn {
+            background-color: #bfa15f;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            font-weight: bold;
+        }
+        .video-container {
+            margin: 20px auto;
+            max-width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        video {
+            width: 100%;
+            display: block;
+        }
+        form {
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .checkbox-container input {
+            width: auto;
+            margin-right: 10px;
+        }
+        /* Nasconde gli elementi in rumeno all'avvio */
+        [lang="ro"] {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switch">
+        <button id="btn-it" class="lang-btn active" onclick="setLanguage('it')">IT</button>
+        |
+        <button id="btn-ro" class="lang-btn" onclick="setLanguage('ro')">RO</button>
+    </div>
+
+    <div class="header">
+        <div lang="it" class="subtitle">Il Nostro Matrimonio | Gianluca & Cristina</div>
+        <div lang="ro" class="subtitle">Nunta Noastră | Gianluca & Cristina</div>
+        
+        <div lang="it" class="subtitle" style="margin-top: 20px;">Si Sposano</div>
+        <div lang="ro" class="subtitle" style="margin-top: 20px;">Se Căsătoresc</div>
+        
+        <h1>Gianluca & Cristina</h1>
+        
+        <div lang="it" class="date">26 . Giugno . 2027</div>
+        <div lang="ro" class="date">26 . Iunie . 2027</div>
+        
+        <div lang="it" class="subtitle">Salva la splendida data</div>
+        <div lang="ro" class="subtitle">Salvează data minunată</div>
+    </div>
+
+    <!-- Nuova Sezione Video di Benvenuto -->
+    <div class="section section-bg">
+        <h2 lang="it">Un messaggio per voi</h2>
+        <h2 lang="ro">Un mesaj pentru voi</h2>
+        
+        <p lang="it">Guardate il nostro video di benvenuto per scoprire tutte le informazioni e le istruzioni utili per il nostro grande giorno!</p>
+        <p lang="ro">Urmăriți videoclipul nostru de bun venit pentru a descoperi toate informațiile și instrucțiunile utile pentru marea noastră zi!</p>
+        
+        <div class="video-container">
+            <video controls poster="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80">
+                <source src="welcome-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <div class="section">
+        <div lang="it" class="subtitle">Il Luogo dei Festeggiamenti</div>
+        <div lang="ro" class="subtitle">Locul Petrecerii</div>
+        
+        <h2 lang="it">La Location</h2>
+        <h2 lang="ro">Locația</h2>
+        
+        <h3>Castello di Montaldo Hotel & SPA</h3>
+        
+        <p lang="it">Una splendida cornice immersa nel verde dove celebreremo insieme la gioia di questo giorno.</p>
+        <p lang="ro">Un cadru splendid cufundat în verdeață unde vom sărbători împreună bucuria acestei zile.</p>
+        
+        <p><strong>Ristorante Externo</strong></p>
+        
+        <a href="#" class="btn" lang="it">Esplora il Sito</a>
+        <a href="#" class="btn" lang="ro">Explorează Site-ul</a>
+        
+        <a href="#" class="btn" lang="it">Mappa Location</a>
+        <a href="#" class="btn" lang="ro">Hartă Locație</a>
+        
+        <a href="#" class="btn" lang="it">Apri Navigatore</a>
+        <a href="#" class="btn" lang="ro">Deschide Navigatorul</a>
+    </div>
+
+    <div class="section section-bg">
+        <h2 lang="it">Il Programma</h2>
+        <h2 lang="ro">Programul</h2>
+        
+        <p lang="it">I moments più emozionanti della nostra giornata insieme</p>
+        <p lang="ro">Cele mai emoționante momente ale zilei noastre împreună</p>
+        
+        <div style="margin: 30px 0;">
+            <h3>I. Ricevimento / Recepție</h3>
+            <p><strong>Ore 11:00</strong></p>
+            <p lang="it">Cocktail di benvenuto e open buffet allestito nei giardini fioriti della location.</p>
+            <p lang="ro">Cocktail de bun venit și bufet deschis amenajat în grădinile înflorite ale locației.</p>
+        </div>
+        
+        <div style="margin: 30px 0;">
+            <h3>II. La Cerimonia / Ceremonia</h3>
+            <p><strong>Ore 12:00</strong></p>
+            <p lang="it">Presso la splendida Chiesa monumentale o il Palazzo Comunale del centro cittadino.</p>
+            <p lang="ro">La splendida Biserică monumentală sau la Palatul Municipal din centrul orașului.</p>
+        </div>
+        
+        <div style="margin: 30px 0;">
+            <h3>III. Party / Petrecere</h3>
+            <p><strong>Ore 20:00</strong></p>
+            <p lang="it">Festeggiamenti nella Sala principale o all'esterno.</p>
+            <p lang="ro">Petrecere în Sala Principală sau în aer liber.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div lang="it" class="subtitle">Gianluca e Cristina - Gli Inizi</div>
+        <div lang="ro" class="subtitle">Gianluca și Cristina - Începutul</div>
+        
+        <h2 lang="it">La Nostra Storia</h2>
+        <h2 lang="ro">Povestea Noastră</h2>
+        
+        <p lang="it">Ci sono momenti nella vita che cambiano tutto, e il nostro incontro è stato uno di quelli. In questi anni abbiamo condiviso passioni, risate, progetti e viaggi, costruendo giorno dopo giorno il nostro futuro insieme.</p>
+        <p lang="ro">Sunt momente în viață care schimbă totul, iar întâlnirea noastră a fost unul dintre ele. În acești ani am împărtășit pasiuni, zâmbete, proiecte și călătorii, construindu-ne viitorul împreună zi de zi.</p>
+    </div>
+
+    <!-- Script per far funzionare lo switch delle lingue -->
+    <script>
+        function setLanguage(lang) {
+            // Seleziona tutti gli elementi con attributo lang="it" e lang="ro"
+            const itElements = document.querySelectorAll('[lang="it"]');
+            const roElements = document.querySelectorAll('[lang="ro"]');
+            
+            const btnIt = document.getElementById('btn-it');
+            const btnRo = document.getElementById('btn-ro');
+
+            if (lang === 'it') {
+                // Mostra italiano, nasconde rumeno
+                itElements.forEach(el => el.style.setProperty('display', 'block', 'important'));
+                roElements.forEach(el => el.style.setProperty('display', 'none', 'important'));
+                
+                // Gestione stile pulsanti
+                btnIt.classList.add('active');
+                btnRo.classList.remove('active');
+            } else if (lang === 'ro') {
+                // Mostra rumeno, nasconde italiano
+                itElements.forEach(el => el.style.setProperty('display', 'none', 'important'));
+                roElements.forEach(el => el.style.setProperty('display', 'block', 'important'));
+                
+                // Gestione stile pulsanti
+                btnRo.classList.add('active');
+                btnIt.classList.remove('active');
+            }
+        }
+
+        // Esegue l'impostazione iniziale all'avvio della pagina
+        window.addEventListener('DOMContentLoaded', () => {
+            setLanguage('it');
+        });
+    </script>
+
+</body>
+</html>

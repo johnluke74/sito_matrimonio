@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Nostro Matrimonio | Gianluca & Cristina</title>
+    
+    <!-- Collegamento al tuo file locale compilato -->
+    <link href="./output.css" rel="stylesheet"> 
+
+    <!-- Google Fonts Premium -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .colore-sposa {
+            color: #00bfff !important; 
+            -webkit-text-stroke: 1.5px #313cda; 
+            text-shadow: 2px 2px 4px rgba(0, 51, 170, 0.4); 
+        }
+        
+        /* Gestione visibilità lingue senza rompere il layout flex/grid di Tailwind */
+        [lang="ro"] {
+            display: none !important;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            z-index: 1000;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(30, 144, 255, 0.1);
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #78716c;
+            transition: color 0.2s;
+            padding: 0 4px;
+        }
+        .lang-btn.active {
+            color: #1e90ff;
+        }
+    </style>
+</head>
+<body class="bg-[#faf9f6] text-stone-800 antialiased">
+
+    <!-- Selettore della Lingua Fisso Elegante -->
+    <div class="lang-switch text-stone-600">
+        <button id="btn-it" class="lang-btn active" onclick="setLanguage('it')">IT</button>
+        <span class="text-stone-300">|</span>
+        <button id="btn-ro" class="lang-btn" onclick="setLanguage('ro')">RO</button>
+    </div>
+
+    <!-- 1. HERO SECTION -->
+    <header class="h-screen flex flex-col items-center justify-center relative p-6 text-center overflow-hidden bg-stone-900">
+        <img src="./images/copertina.jpg" alt="Fedi Gianluca e Cristina" class="absolute inset-0 w-full h-full object-cover z-0 opacity-30">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-[#faf9f6]/90 z-10"></div>
+        
+        <div class="relative z-20 max-w-2xl mx-auto space-y-6">
+            <span lang="it" class="text-xs uppercase tracking-widest font-bold text-amber-400 block mb-2" style="letter-spacing: 0.3em;">Si Sposano</span>
+            <span lang="ro" class="text-xs uppercase tracking-widest font-bold text-amber-400 block mb-2" style="letter-spacing: 0.3em;">Se Căsătoresc</span>
+            
+            <h1 class="font-serif text-6xl md:text-8xl font-light tracking-wide leading-tight text-[#00bfff]" 
+                style="-webkit-text-stroke: 1.5px #313cda; text-shadow: 2px 2px 4px rgba(0, 51, 170, 0.4);">
+                Gianluca <span class="font-serif italic font-normal text-amber-500" style="-webkit-text-stroke: 0px; text-shadow: none;">&</span> Cristina
+            </h1>
+
+            <div class="w-12 h-px bg-[#1e90ff]/50 mx-auto my-6"></div>
+            
+            <p lang="it" class="font-serif italic text-2xl text-amber-400">Salva la splendida data</p>
+            <p lang="ro" class="font-serif italic text-2xl text-amber-400">Salvează data minunată</p>
+            
+            <div class="inline-block mt-4">
+                <div class="border border-[#1e90ff]/20 bg-white/85 backdrop-blur-md px-10 py-5 rounded-xl shadow-xl">
+                    <p lang="it" class="text-xl tracking-widest font-semibold text-[#1e90ff]" style="letter-spacing: 0.2em;">26 . Giugno. 2027</p>
+                    <p lang="ro" class="text-xl tracking-widest font-semibold text-[#1e90ff]" style="letter-spacing: 0.2em;">26 . Iunie. 2027</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-90 z-20 text-[#1e90ff]">
+            <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7-7-7m14-6l-7 7-7-7"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- 1.5 LA LOCATION LUXURY CON FOTO -->
+    <section class="max-w-4xl mx-auto px-6 py-16 bg-white rounded-3xl my-12 border border-stone-200/40 shadow-xl text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#1e90ff] to-[#00bfff]"></div>
+        
+        <div class="max-w-xl mx-auto space-y-3 mb-12">
+            <span lang="it" class="text-xs uppercase tracking-widest font-bold text-[#1e90ff] block" style="letter-spacing: 0.2em;">Il Luogo dei Festeggiamenti</span>
+            <span lang="ro" class="text-xs uppercase tracking-widest font-bold text-[#1e90ff] block" style="letter-spacing: 0.2em;">Locul Petrecerii</span>
+            
+            <h2 lang="it" class="font-serif text-3xl md:text-4xl font-light text-stone-900 tracking-wide">La Location</h2>
+            <h2 lang="ro" class="font-serif text-3xl md:text-4xl font-light text-stone-900 tracking-wide">Locația</h2>
+            
+            <div class="w-12 h-px bg-[#1e90ff]/40 mx-auto my-2"></div>
+            <p class="font-serif italic text-xl text-amber-600">Castello di Montaldo Hotel & SPA</p>
+            
+            <p lang="it" class="text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
+                Una splendida cornice immersa nel verde dove celebreremo insieme la gioia di questo giorno.
+            </p>
+            <p lang="ro" class="text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
+                Un cadru splendid cufundat în verdeață unde vom sărbători împreună bucuria acestei zile.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-w: 650px; margin: 32px auto 0 auto;">
+            <a href="https://castellomontaldotorino.it" target="_blank" class="group relative block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-stone-200/60" style="position: relative; width: 100%; height: 220px; display: block; z-index: 10;">
+                <img src="images/ristorante_esterno.jpg" alt="Ristorante Esterno" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                <div class="absolute inset-0 bg-black/45 group-hover:bg-black/35 transition-all duration-300" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.45); z-index: 10;"></div>
+                <div class="absolute inset-0 flex items-center justify-center p-4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 20;">
+                    <span lang="it" class="text-white text-xs uppercase tracking-widest font-bold px-5 py-2.5 rounded-xl border border-white/30 transition-all group-hover:bg-[#1e90ff] group-hover:border-[#1e90ff]" style="color: white !important; font-weight: bold; letter-spacing: 0.1em; background-color: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px;">Esplora il Sito</span>
+                    <span lang="ro" class="text-white text-xs uppercase tracking-widest font-bold px-5 py-2.5 rounded-xl border border-white/30 transition-all group-hover:bg-[#1e90ff] group-hover:border-[#1e90ff]" style="color: white !important; font-weight: bold; letter-spacing: 0.1em; background-color: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px;">Explorează Site-ul</span>
+                </div>
+            </a>
+
+            <a href="https://google.com" target="_blank" class="group relative block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-stone-200/60" style="position: relative; width: 100%; height: 220px; display: block; z-index: 10;">
+                <img src="images/ristorante_mappa.jpg" alt="Mappa Location" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                <div class="absolute inset-0 bg-black/45 group-hover:bg-black/35 transition-all duration-300" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.45); z-index: 10;"></div>
+                <div class="absolute inset-0 flex items-center justify-center p-4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 20;">
