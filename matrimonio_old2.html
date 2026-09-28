@@ -11,7 +11,7 @@
     <!-- Google Fonts Premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -22,94 +22,28 @@
             text-shadow: 2px 2px 4px rgba(0, 51, 170, 0.4); 
         }
 
-        /* ===== CARD SU CORNICE A MERLETTO (immagine) ===== */
+        /* ===== MERLETTO PER LE CARD ===== */
         .merletto {
-            border: 28px solid transparent;
-            border-image: url('./images/merletto.svg') 40 round;
-            background-clip: padding-box;   /* il bianco resta solo dentro la cornice */
-            border-radius: 0;
-            box-shadow: none;
-            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                inset 0 0 0 6px #ffffff,
+                inset 0 0 0 7px #e9d8a6;
         }
-        .merletto:hover { transform: translateY(-3px); }
-
-        /* ===== TIPOGRAFIA (pensata per smartphone) ===== */
-        html { -webkit-text-size-adjust: 100%; }
-        body { font-size: 16px; text-rendering: optimizeLegibility; }
-
-        /* Nomi degli sposi in hero: uno sotto l'altro, corsivo da invito */
-        .nomi-sposi {
-            font-family: 'Great Vibes', 'Snell Roundhand', cursive;
-            font-weight: 400;
-            font-size: clamp(3.4rem, 16vw, 6rem);
-            line-height: 1;
-            color: #00bfff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            -webkit-text-stroke: 2px #313cda;
-            paint-order: stroke fill;      /* il contorno resta fuori dalle lettere */
-            text-shadow: 2px 3px 6px rgba(0, 51, 170, 0.35);
+        .merletto::before,
+        .merletto::after {
+            content: "";
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            height: 14px;
+            pointer-events: none;
+            background-repeat: repeat-x;
+            background-size: 24px 14px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='14' viewBox='0 0 24 14'%3E%3Cpath d='M0 0 Q12 18 24 0' fill='none' stroke='%23d4a95a' stroke-width='1'/%3E%3Ccircle cx='12' cy='4.5' r='1.6' fill='none' stroke='%23d4a95a' stroke-width='0.8'/%3E%3C/svg%3E");
         }
-        .nomi-sposi .e-commerciale {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-weight: 500;
-            font-size: .5em;
-            line-height: 1.2;
-            color: #f59e0b;
-            -webkit-text-stroke: 0;
-            text-shadow: none;
-        }
-
-        /* Titoli di sezione in corsivo da invito */
-        .titolo-sezione {
-            font-family: 'Great Vibes', 'Snell Roundhand', cursive;
-            font-weight: 400;
-            font-size: clamp(2.8rem, 12vw, 3.8rem);
-            line-height: 1.15;
-            color: #292524;
-        }
-
-        /* Etichette piccole (Si Sposano, Un po' di noi...) */
-        .etichetta { font-size: .85rem; }
-
-        /* Sottotitoli e frasi in corsivo */
-        .corsivo { font-weight: 500; font-size: 1.6rem; }
-        .sottotitolo {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.3rem;
-            color: #78716c;
-            letter-spacing: .02em;
-        }
-        .nome-location { font-weight: 500; font-size: 1.7rem; color: #a9781f; line-height: 1.25; }
-
-        /* Testo corrente: mai sotto i 16px, peso normale */
-        .testo { font-size: 1rem; line-height: 1.75; font-weight: 400; color: #57534e; }
-        .nota { font-size: .95rem; color: #78716c; }
-
-        /* Card del programma */
-        .numeral { font-size: 1.2rem; font-weight: 600; color: #a9781f; }
-        .titolo-card { font-size: 1.9rem; font-weight: 600; line-height: 1.15; }
-        .ora { font-size: .85rem; color: #a9781f; letter-spacing: .18em !important; }
-
-        /* Firma e didascalie */
-        .firma { font-family: 'Great Vibes', 'Snell Roundhand', cursive; font-style: normal; font-size: 2.3rem; line-height: 1.2; }
-        .didascalia { font-size: .75rem; }
-
-        /* Divisore ornamentale: filo dorato con rombo al centro */
-        .divisore { display: flex; align-items: center; justify-content: center; gap: 10px; width: 150px; margin: 1rem auto; }
-        .divisore::before, .divisore::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #c9a24e); }
-        .divisore::after { background: linear-gradient(270deg, transparent, #c9a24e); }
-        .divisore i { width: 7px; height: 7px; background: #c9a24e; transform: rotate(45deg); flex: none; }
-
-        /* Modulo: 16px nei campi evita lo zoom automatico su iPhone */
-        #weddingForm input[type="text"],
-        #weddingForm input[type="email"],
-        #weddingForm select,
-        #weddingForm textarea { font-size: 16px; }
-        #weddingForm .text-xs { font-size: .85rem; line-height: 1.5; }
+        .merletto::before { top: 8px; }
+        .merletto::after { bottom: 8px; transform: scaleY(-1); }
     
     </style>
 </head>
@@ -126,18 +60,17 @@
         
         <!-- CONTENUTO IN PRIMO PIANO -->
         <div class="relative z-20 max-w-2xl mx-auto space-y-6">
-            <span class="etichetta text-xs uppercase tracking-widest font-bold  text-amber-400 block mb-2" style="letter-spacing: 0.3em;">Si Sposano</span>
+            <span class="text-xs uppercase tracking-widest font-bold  text-amber-400 block mb-2" style="letter-spacing: 0.3em;">Si Sposano</span>
             
             <!-- Nomi in Blu Cielo Elettrico Brillante e la "&" mantiene l'oro ambra -->
-            <h1 class="nomi-sposi">
-                <span class="nome">Gianluca</span>
-                <span class="e-commerciale">&amp;</span>
-                <span class="nome">Cristina</span>
+            <h1 class="font-serif text-6xl md:text-8xl font-light tracking-wide leading-tight text-[#00bfff]" 
+                style="-webkit-text-stroke: 1.5px #313cda; text-shadow: 2px 2px 4px rgba(0, 51, 170, 0.4);">
+                Gianluca <span class="font-serif italic font-normal text-amber-500" style="-webkit-text-stroke: 0px; text-shadow: none;">&</span> Cristina
             </h1>
 
             
-            <div class="divisore"><i></i></div>
-            <p class="corsivo font-serif italic text-2xl  text-amber-400">Salva la splendida data</p>
+            <div class="w-12 h-px bg-[#1e90ff]/50 mx-auto my-6"></div>
+            <p class="font-serif italic text-2xl  text-amber-400">Salva la splendida data</p>
             
             <div class="inline-block mt-4">
                 <!-- Riquadro in vetro satinato con riflessi azzurrati -->
@@ -158,11 +91,11 @@
         <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#1e90ff] to-[#00bfff]"></div>
         
         <div class="max-w-xl mx-auto space-y-3 mb-12">
-            <span class="etichetta text-xs uppercase tracking-widest font-bold text-[#1e90ff] block" style="letter-spacing: 0.2em;">Il Luogo dei Festeggiamenti</span>
-            <h2 class="titolo-sezione">La Location</h2>
-            <div class="divisore"><i></i></div>
-            <p class="nome-location font-serif italic text-xl text-amber-600">Castello di Montaldo Hotel & SPA</p> <!-- Cambia con il nome reale -->
-            <p class="testo text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
+            <span class="text-xs uppercase tracking-widest font-bold text-[#1e90ff] block" style="letter-spacing: 0.2em;">Il Luogo dei Festeggiamenti</span>
+            <h2 class="font-serif text-3xl md:text-4xl font-light text-stone-900 tracking-wide">La Location</h2>
+            <div class="w-12 h-px bg-[#1e90ff]/40 mx-auto my-2"></div>
+            <p class="font-serif italic text-xl text-amber-600">Castello di Montaldo Hotel & SPA</p> <!-- Cambia con il nome reale -->
+            <p class="text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
                 Una splendida cornice immersa nel verde dove celebreremo insieme la gioia di questo giorno.
             </p>
                 <!-- 💡 Griglia dei due pulsanti fotografici - CORREZIONE LARGHEZZA INLINE -->
@@ -199,27 +132,26 @@
     <!-- 1. IL PROGRAMMA -->
     <section class="max-w-5xl mx-auto px-6 py-24">
         <div class="text-center max-w-xl mx-auto mb-16 space-y-3">
-            <h2 class="titolo-sezione">Il Programma</h2>
-            <div class="divisore"><i></i></div>
-            <p class="sottotitolo">I momenti più emozionanti della nostra giornata insieme</p>
+            <h2 class="font-serif text-4xl md:text-5xl font-light text-stone-900 tracking-wide">Il Programma</h2>
+            <p class="text-sm text-stone-500 tracking-wide">I momenti più emozionanti della nostra giornata insieme</p>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Blocco Aperitivo -->
             <div class="merletto bg-white p-8 rounded-2xl border border-stone-200/40 shadow-xs hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
                 <div>
-                    <div class="numeral w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">I</div>
-                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2">Ricevimento</h3>
-                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 11:00</p>
-                    <p class="testo text-stone-600 text-sm leading-relaxed">Cocktail di benvenuto e open buffet allestito nei giardini fioriti della location.</p>
+                    <div class="w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">I</div>
+                    <h3 class="font-serif text-2xl font-normal text-stone-900 mb-2">Ricevimento</h3>
+                    <p class="text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 11:00</p>
+                    <p class="text-stone-600 text-sm leading-relaxed">Cocktail di benvenuto e open buffet allestito nei giardini fioriti della location.</p>
                 </div>
             </div>
             <!-- Blocco Cerimonia -->
             <div class="merletto bg-white p-8 rounded-2xl border border-stone-200/40 shadow-xs hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
                 <div>
-                    <div class="numeral w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">II</div>
-                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2">La Cerimonia</h3>
-                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 12:00</p>
-                    <p class="testo text-stone-600 text-sm leading-relaxed">Presso la splendida Chiesa monumentale o il Palazzo Comunale del centro cittadino.</p>
+                    <div class="w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">II</div>
+                    <h3 class="font-serif text-2xl font-normal text-stone-900 mb-2">La Cerimonia</h3>
+                    <p class="text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 12:00</p>
+                    <p class="text-stone-600 text-sm leading-relaxed">Presso la splendida Chiesa monumentale o il Palazzo Comunale del centro cittadino.</p>
                 </div>
             </div>
             
@@ -228,10 +160,10 @@
             <!-- Blocco Party -->
             <div class="merletto bg-white p-8 rounded-2xl border border-stone-200/40 shadow-xs hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
                 <div>
-                    <div class="numeral w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">III</div>
-                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2">Party</h3>
-                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 20:00</p>
-                    <p class="testo text-stone-600 text-sm leading-relaxed">Festeggiamenti nella Sala principale o all'esterno.</p>
+                    <div class="w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">III</div>
+                    <h3 class="font-serif text-2xl font-normal text-stone-900 mb-2">Party</h3>
+                    <p class="text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 20:00</p>
+                    <p class="text-stone-600 text-sm leading-relaxed">Festeggiamenti nella Sala principale o all'esterno.</p>
                 </div>
             </div>
         </div>
@@ -245,27 +177,27 @@
             <div class="relative group justify-self-center w-full max-w-xs">
                 <div class="absolute -inset-1 bg-gradient-to-tr from-[#1e90ff] to-[#00bfff] rounded-xl opacity-10 blur-xs"></div>
                 <img src="./images/storia.jpg" alt="Gianluca e Cristina - Gli Inizi" class="relative z-10 w-full rounded-xl shadow-md border-2 border-white object-cover aspect-3/4 transform transition-transform duration-500 group-hover:scale-[1.02]">
-                <span class="absolute bottom-3 left-3 z-20 bg-black/40 backdrop-blur-xs didascalia text-white text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-md">
+                <span class="absolute bottom-3 left-3 z-20 bg-black/40 backdrop-blur-xs text-white text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-md">
                     Gli Inizi
                 </span>
             </div>
             
             <!-- COLONNA 2: Il Racconto della Storia (Centro su PC, Seconda su Mobile) -->
             <div class="space-y-4 text-center px-2">
-                <span class="etichetta text-xs uppercase tracking-widest font-bold text-[#1e90ff] block mb-1" style="letter-spacing: 0.2em;">Un po' di noi</span>
-                <h2 class="titolo-sezione">La Nostra Storia</h2>
-                <div class="divisore"><i></i></div>
+                <span class="text-xs uppercase tracking-widest font-bold text-[#1e90ff] block mb-1" style="letter-spacing: 0.2em;">Un po' di noi</span>
+                <h2 class="font-serif text-3xl font-light text-stone-900 tracking-wide">La Nostra Storia</h2>
+                <div class="w-12 h-px bg-[#1e90ff]/40 my-3 mx-auto"></div>
                 
-                <p class="testo text-stone-600 text-xs md:text-sm leading-relaxed font-light">
+                <p class="text-stone-600 text-xs md:text-sm leading-relaxed font-light">
                     Ci sono momenti nella vita che cambiano tutto, e il nostro incontro è stato uno di quelli. 
                     In questi anni abbiamo condiviso passioni, risate, progetti e viaggi, costruendo giorno dopo giorno il nostro futuro insieme.
                 </p>
-                <p class="testo text-stone-600 text-xs md:text-sm leading-relaxed font-light">
+                <p class="text-stone-600 text-xs md:text-sm leading-relaxed font-light">
                     Oggi, con la stessa gioia dei primi giorni ma con la consapevolezza di un grande amore, 
                     abbiamo deciso di fare il passo più importante. Non vediamo l'ora di festeggiare insieme a voi.
                 </p>
                 
-                <div class="firma pt-2 font-serif italic text-lg text-[#1e90ff]">
+                <div class="pt-2 font-serif italic text-lg text-[#1e90ff]">
                     — Gianluca & Cristina
                 </div>
             </div>
@@ -276,7 +208,7 @@
                 <!-- Modifica la riga da così: -->
                 <!-- A così (aggiungendo object-top): -->
                 <img src="./images/NoiOggi.png" alt="Gianluca e Cristina - Oggi" class="relative z-10 w-full rounded-xl shadow-md border-2 border-white object-cover object-top aspect-3/4 transform transition-transform duration-500 group-hover:scale-[1.02]">
-                <span class="absolute bottom-3 left-3 z-20 bg-black/40 backdrop-blur-xs didascalia text-white text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-md">
+                <span class="absolute bottom-3 left-3 z-20 bg-black/40 backdrop-blur-xs text-white text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-md">
                     Oggi
                 </span>
             </div>
@@ -286,8 +218,8 @@
     <!-- 3. SEZIONE RSVP (Versione Pulita e Nativa per FormSubmit) -->
     <section class="max-w-xl mx-auto px-6 py-16 bg-white rounded-3xl border border-stone-200/50 shadow-xl my-16 relative">
         <div class="text-center mb-10 space-y-2">
-            <h2 class="titolo-sezione">Conferma Presenza</h2>
-            <p class="nota text-xs text-stone-400">Vi preghiamo gentilmente di rispondere entro il 30 Aprile 2027</p>
+            <h2 class="font-serif text-3xl font-light text-stone-900 tracking-wide">Conferma Presenza</h2>
+            <p class="text-xs text-stone-400">Vi preghiamo gentilmente di rispondere entro il 30 Aprile 2027</p>
         </div>
         <!-- Sostituisci interamente la riga del form con il tuo link Apps Script -->
         <form action="https://script.google.com/macros/s/AKfycbywcodk3iR3JQzqu6-D-LZlgAm8HWOPcAZlvglYCsPcSJMyrU1myFuf_zDG7OaWNq8HUA/exec" method="POST" class="space-y-6" id="weddingForm">
