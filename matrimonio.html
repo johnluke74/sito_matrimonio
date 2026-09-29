@@ -2,7 +2,7 @@
 <html lang="it" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Il Nostro Matrimonio | Gianluca & Cristina</title>
     
     <!-- Collegamento al tuo file locale compilato -->
@@ -110,10 +110,85 @@
         #weddingForm select,
         #weddingForm textarea { font-size: 16px; }
         #weddingForm .text-xs { font-size: .85rem; line-height: 1.5; }
-    
+
+        /* Selettore di lingua, fisso in alto a destra */
+        .lang-switch {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 14px);
+            right: 14px;
+            z-index: 50;
+            display: flex;
+            gap: 6px;
+            background: rgba(0, 0, 0, .35);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, .25);
+            border-radius: 999px;
+            padding: 4px;
+        }
+        .lang-switch button {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            color: rgba(255, 255, 255, .75);
+            background: transparent;
+            border: none;
+            border-radius: 999px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .lang-switch button.is-active {
+            color: #1e293b;
+            background: #ffffff;
+        }
+
+        /* Pulsante musica: stessa linea grafica del selettore di lingua */
+        .music-toggle {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 14px);
+            left: 14px;
+            z-index: 50;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .35);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, .25);
+            border-radius: 999px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .music-toggle svg { width: 16px; height: 16px; }
+        .music-toggle.is-playing { background: #1e90ff; border-color: #1e90ff; }
     </style>
 </head>
 <body class="bg-[#faf9f6] text-stone-800 antialiased">
+
+    <!-- Selettore di lingua: la scelta resta memorizzata anche tornando dalla landing page -->
+    <div class="lang-switch" aria-label="Cambia lingua / Schimbă limba">
+        <button type="button" data-lang="it" onclick="setSiteLang('it')">IT</button>
+        <button type="button" data-lang="ro" onclick="setSiteLang('ro')">RO</button>
+    </div>
+
+    <!-- Base musicale: parte solo se l'ospite la avvia, non si scarica finché non la tocca -->
+    <audio id="musicaSottofondo" loop preload="none">
+        <source src="./audio/sottofondo.mp3" type="audio/mpeg">
+    </audio>
+    <button type="button" id="musicToggle" class="music-toggle" aria-label="Attiva o ferma la musica" aria-pressed="false">
+        <svg id="musicIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <svg id="musicIconOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+            <line x1="3" y1="3" x2="21" y2="21"></line>
+        </svg>
+    </button>
 
         <!-- 1. HERO SECTION - REVISIONE COLORI (CELESTE/BLU ELETTRICO + OPACITÀ 85%) -->
     <header class="h-screen flex flex-col items-center justify-center relative p-6 text-center overflow-hidden bg-stone-900">
@@ -126,7 +201,7 @@
         
         <!-- CONTENUTO IN PRIMO PIANO -->
         <div class="relative z-20 max-w-2xl mx-auto space-y-6">
-            <span class="etichetta text-xs uppercase tracking-widest font-bold  text-amber-400 block mb-2" style="letter-spacing: 0.3em;">Si Sposano</span>
+            <span class="etichetta text-xs uppercase tracking-widest font-bold  text-amber-400 block mb-2" data-ro="Se căsătoresc" style="letter-spacing: 0.3em;">Si Sposano</span>
             
             <!-- Nomi in Blu Cielo Elettrico Brillante e la "&" mantiene l'oro ambra -->
             <h1 class="nomi-sposi">
@@ -137,12 +212,12 @@
 
             
             <div class="divisore"><i></i></div>
-            <p class="corsivo font-serif italic text-2xl  text-amber-400">Salva la splendida data</p>
+            <p class="corsivo font-serif italic text-2xl  text-amber-400" data-ro="Salvați data minunată">Salva la splendida data</p>
             
             <div class="inline-block mt-4">
                 <!-- Riquadro in vetro satinato con riflessi azzurrati -->
                 <div class="border border-[#1e90ff]/20 bg-white/85 backdrop-blur-md px-10 py-5 rounded-xl shadow-xl">
-                    <p class="text-xl tracking-widest font-semibold text-[#1e90ff]" style="letter-spacing: 0.2em;">26 . Giugno. 2027</p>
+                    <p class="text-xl tracking-widest font-semibold text-[#1e90ff]" data-ro="26 . Iunie . 2027" style="letter-spacing: 0.2em;">26 . Giugno. 2027</p>
                 </div>
             </div>
         </div>
@@ -158,11 +233,11 @@
         <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#1e90ff] to-[#00bfff]"></div>
         
         <div class="max-w-xl mx-auto space-y-3 mb-12">
-            <span class="etichetta text-xs uppercase tracking-widest font-bold text-[#1e90ff] block" style="letter-spacing: 0.2em;">Il Luogo dei Festeggiamenti</span>
-            <h2 class="titolo-sezione">La Location</h2>
+            <span class="etichetta text-xs uppercase tracking-widest font-bold text-[#1e90ff] block" data-ro="Locul Petrecerii" style="letter-spacing: 0.2em;">Il Luogo dei Festeggiamenti</span>
+            <h2 class="titolo-sezione" data-ro="Locația">La Location</h2>
             <div class="divisore"><i></i></div>
             <p class="nome-location font-serif italic text-xl text-amber-600">Castello di Montaldo Hotel & SPA</p> <!-- Cambia con il nome reale -->
-            <p class="testo text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
+            <p class="testo text-xs text-stone-500 max-w-sm mx-auto leading-relaxed" data-ro="Un cadru minunat, cufundat în verdeață, unde vom sărbători împreună bucuria acestei zile.">
                 Una splendida cornice immersa nel verde dove celebreremo insieme la gioia di questo giorno.
             </p>
                 <!-- 💡 Griglia dei due pulsanti fotografici - CORREZIONE LARGHEZZA INLINE -->
@@ -173,7 +248,7 @@
                 <img src="images/ristorante_esterno.jpg" alt="Ristorante Esterno" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
                 <div class="absolute inset-0 bg-black/45 group-hover:bg-black/35 transition-all duration-300" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.45); z-index: 10;"></div>
                 <div class="absolute inset-0 flex items-center justify-center p-4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 20;">
-                    <span class="text-white text-xs uppercase tracking-widest font-bold px-5 py-2.5 rounded-xl border border-white/30 transition-all group-hover:bg-[#1e90ff] group-hover:border-[#1e90ff]" style="color: white !important; font-weight: bold; letter-spacing: 0.1em; background-color: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px;">
+                    <span class="text-white text-xs uppercase tracking-widest font-bold px-5 py-2.5 rounded-xl border border-white/30 transition-all group-hover:bg-[#1e90ff] group-hover:border-[#1e90ff]" data-ro="Explorează Site-ul" style="color: white !important; font-weight: bold; letter-spacing: 0.1em; background-color: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px;">
                         Esplora il Sito
                     </span>
                 </div>
@@ -184,7 +259,7 @@
                 <img src="images/ristorante_mappa.jpg" alt="Mappa Location" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
                 <div class="absolute inset-0 bg-black/45 group-hover:bg-black/35 transition-all duration-300" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.45); z-index: 10;"></div>
                 <div class="absolute inset-0 flex items-center justify-center p-4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 20;">
-                    <span class="text-white text-xs uppercase tracking-widest font-bold px-5 py-2.5 rounded-xl border border-white/30 transition-all group-hover:bg-[#1e90ff] group-hover:border-[#1e90ff]" style="color: white !important; font-weight: bold; letter-spacing: 0.1em; background-color: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px;">
+                    <span class="text-white text-xs uppercase tracking-widest font-bold px-5 py-2.5 rounded-xl border border-white/30 transition-all group-hover:bg-[#1e90ff] group-hover:border-[#1e90ff]" data-ro="Deschide Navigația" style="color: white !important; font-weight: bold; letter-spacing: 0.1em; background-color: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px;">
                         Apri Navigatore
                     </span>
                 </div>
@@ -199,44 +274,45 @@
     <!-- 1. IL PROGRAMMA -->
     <section class="max-w-5xl mx-auto px-6 py-24">
         <div class="text-center max-w-xl mx-auto mb-16 space-y-3">
-            <h2 class="titolo-sezione">Il Programma</h2>
+            <h2 class="titolo-sezione" data-ro="Programul">Il Programma</h2>
             <div class="divisore"><i></i></div>
-            <p class="sottotitolo">I momenti più emozionanti della nostra giornata insieme</p>
+            <p class="sottotitolo" data-ro="Cele mai emoționante momente ale zilei noastre împreună">I momenti più emozionanti della nostra giornata insieme</p>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-         <!-- Blocco Cerimonia -->
+            <!-- Blocco Cerimonia -->
             <div class="merletto bg-white p-8 rounded-2xl border border-stone-200/40 shadow-xs hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
                 <div>
                     <div class="numeral w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">I</div>
-                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2">La Cerimonia</h3>
-                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 11:00</p>
-                    <p class="testo text-stone-600 text-sm leading-relaxed">Presso la splendida Chiesa monumentale o il Palazzo Comunale del centro cittadino.</p>
+                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2" data-ro="Ceremonia">La Cerimonia</h3>
+                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" data-ro="Ora 11:00" style="letter-spacing: 0.1em;">Ore 11:00</p>
+                    <p class="testo text-stone-600 text-sm leading-relaxed" data-ro="La grădinile Lilium ale Castelului sau în Sala Lilum interioară.">Presso i giardini Lilium del Castello o la Sala interna Lilum.</p>
                 </div>
             </div>
-        <!-- Blocco Aperitivo /Ricevimento-->
+            
+            <!-- Blocco Aperitivo -->
             <div class="merletto bg-white p-8 rounded-2xl border border-stone-200/40 shadow-xs hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
                 <div>
                     <div class="numeral w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">II</div>
-                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2">Ricevimento</h3>
-                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 12:00</p>
-                    <p class="testo text-stone-600 text-sm leading-relaxed">Cocktail di benvenuto e open buffet allestito nei giardini fioriti della location.</p>
+                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2" data-ro="Recepție">Ricevimento</h3>
+                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" data-ro="Ora 12:00" style="letter-spacing: 0.1em;">Ore 12:00</p>
+                    <p class="testo text-stone-600 text-sm leading-relaxed" data-ro="Cocktail de bun venit și prânz festiv în grădinile de flori sau în holul interior.">Cocktail di benvenuto e Pranzo di Gala presso i giardini firoti o la sala interna..</p>
                 </div>
             </div>
-           
+
             
             <!-- Blocco Party -->
             <div class="merletto bg-white p-8 rounded-2xl border border-stone-200/40 shadow-xs hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
                 <div>
                     <div class="numeral w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center font-serif italic font-bold mb-6">III</div>
-                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2">Party</h3>
-                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" style="letter-spacing: 0.1em;">Ore 17:00</p>
-                    <p class="testo text-stone-600 text-sm leading-relaxed">Festeggiamenti nella Sala principale o all'esterno.</p>
+                    <h3 class="titolo-card font-serif text-2xl font-normal text-stone-900 mb-2" data-ro="Petrecere">Party</h3>
+                    <p class="ora text-xs uppercase tracking-widest text-amber-500 font-semibold mb-4" data-ro="Ora 17:00" style="letter-spacing: 0.1em;">Ore 17:00</p>
+                    <p class="testo text-stone-600 text-sm leading-relaxed" data-ro="Petrecere în aer liber sau ìn Sala principală.">Festeggiamenti nella Sala principale o all'esterno.</p>
                 </div>
             </div>
         </div>
     </section>
         <!-- 2.5 SEZIONE SU DI NOI - LAYOUT NARRATIVO (FOTO IERI -> TESTO -> FOTO OGGI) -->
-    <section class="max-w-6xl mx-auto px-6 py-20 bg-white rounded-3xl my-12 border border-stone-200/40 shadow-xs">
+    <section id="la-nostra-storia" class="max-w-6xl mx-auto px-6 py-20 bg-white rounded-3xl my-12 border border-stone-200/40 shadow-xs">
         <!-- Griglia a 3 colonne per PC, colonna singola per Smartphone -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             
@@ -244,22 +320,22 @@
             <div class="relative group justify-self-center w-full max-w-xs">
                 <div class="absolute -inset-1 bg-gradient-to-tr from-[#1e90ff] to-[#00bfff] rounded-xl opacity-10 blur-xs"></div>
                 <img src="./images/storia.jpg" alt="Gianluca e Cristina - Gli Inizi" class="relative z-10 w-full rounded-xl shadow-md border-2 border-white object-cover aspect-3/4 transform transition-transform duration-500 group-hover:scale-[1.02]">
-                <span class="absolute bottom-3 left-3 z-20 bg-black/40 backdrop-blur-xs didascalia text-white text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-md">
+                <span class="absolute bottom-3 left-3 z-20 bg-black/40 backdrop-blur-xs didascalia text-white text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-md" data-ro="Începuturile">
                     Gli Inizi
                 </span>
             </div>
             
             <!-- COLONNA 2: Il Racconto della Storia (Centro su PC, Seconda su Mobile) -->
             <div class="space-y-4 text-center px-2">
-                <span class="etichetta text-xs uppercase tracking-widest font-bold text-[#1e90ff] block mb-1" style="letter-spacing: 0.2em;">Un po' di noi</span>
-                <h2 class="titolo-sezione">La Nostra Storia</h2>
+                <span class="etichetta text-xs uppercase tracking-widest font-bold text-[#1e90ff] block mb-1" data-ro="Puțin despre noi" style="letter-spacing: 0.2em;">Un po' di noi</span>
+                <h2 class="titolo-sezione" data-ro="Povestea Noastră">La Nostra Storia</h2>
                 <div class="divisore"><i></i></div>
                 
-                <p class="testo text-stone-600 text-xs md:text-sm leading-relaxed font-light">
-                    Ci sono momenti nella vita che cambiano tutto, e il nostro incontro è stato uno di quelli. 
+                <p class="testo text-stone-600 text-xs md:text-sm leading-relaxed font-light" data-ro="Există momente în viață care schimbă totul, iar întâlnirea noastră a fost unul dintre acestea; pasiunea noastră pentru dansul caraibian a făcut restul (Mulțumesc, Michael și Barbara). De-a lungul anilor, am împărtășit pasiuni, râsete, proiecte și călătorii, construindu-ne viitorul împreună zi de zi.">
+                    Ci sono momenti nella vita che cambiano tutto, e il nostro incontro è stato uno di quelli,la passione per le danze Caraibiche ha fatto il resto(Grazie Michael & Barbara). 
                     In questi anni abbiamo condiviso passioni, risate, progetti e viaggi, costruendo giorno dopo giorno il nostro futuro insieme.
                 </p>
-                <p class="testo text-stone-600 text-xs md:text-sm leading-relaxed font-light">
+                <p class="testo text-stone-600 text-xs md:text-sm leading-relaxed font-light" data-ro="Astăzi, cu aceeași bucurie a primelor zile, dar cu conștiința unei mari iubiri, am decis să facem cel mai important pas. Abia așteptăm să sărbătorim împreună cu voi.">
                     Oggi, con la stessa gioia dei primi giorni ma con la consapevolezza di un grande amore, 
                     abbiamo deciso di fare il passo più importante. Non vediamo l'ora di festeggiare insieme a voi.
                 </p>
@@ -275,7 +351,7 @@
                 <!-- Modifica la riga da così: -->
                 <!-- A così (aggiungendo object-top): -->
                 <img src="./images/NoiOggi.png" alt="Gianluca e Cristina - Oggi" class="relative z-10 w-full rounded-xl shadow-md border-2 border-white object-cover object-top aspect-3/4 transform transition-transform duration-500 group-hover:scale-[1.02]">
-                <span class="absolute bottom-3 left-3 z-20 bg-black/40 backdrop-blur-xs didascalia text-white text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-md">
+                <span class="absolute bottom-3 left-3 z-20 bg-black/40 backdrop-blur-xs didascalia text-white text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-md" data-ro="Astăzi">
                     Oggi
                 </span>
             </div>
@@ -285,8 +361,8 @@
     <!-- 3. SEZIONE RSVP (Versione Pulita e Nativa per FormSubmit) -->
     <section class="max-w-xl mx-auto px-6 py-16 bg-white rounded-3xl border border-stone-200/50 shadow-xl my-16 relative">
         <div class="text-center mb-10 space-y-2">
-            <h2 class="titolo-sezione">Conferma Presenza</h2>
-            <p class="nota text-xs text-stone-400">Vi preghiamo gentilmente di rispondere entro il 30 Aprile 2027</p>
+            <h2 class="titolo-sezione" data-ro="Confirmă Prezența">Conferma Presenza</h2>
+            <p class="nota text-xs text-stone-400" data-ro="Vă rugăm frumos să răspundeți până pe 30 aprilie 2027">Vi preghiamo gentilmente di rispondere entro il 30 Aprile 2027</p>
         </div>
         <!-- Sostituisci interamente la riga del form con il tuo link Apps Script -->
         <form action="https://script.google.com/macros/s/AKfycbywcodk3iR3JQzqu6-D-LZlgAm8HWOPcAZlvglYCsPcSJMyrU1myFuf_zDG7OaWNq8HUA/exec" method="POST" class="space-y-6" id="weddingForm">
@@ -300,41 +376,41 @@
             
             <!-- Campo 1: Nome -->
             <div>
-                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" style="letter-spacing: 0.1em;">Nome e Cognome</label>
+                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" data-ro="Nume și Prenume" style="letter-spacing: 0.1em;">Nome e Cognome</label>
                 <input type="text" name="Nome Completo" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
             </div>
             <!-- Campo 2: Mail -->
             <div>
-                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" style="letter-spacing: 0.1em;">Indirizzo Email</label>
+                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" data-ro="Adresă Email" style="letter-spacing: 0.1em;">Indirizzo Email</label>
                 <input type="email" name="email" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
             </div>
 
             <!-- Campo 3: Presenza -->
             <div>
-                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-3" style="letter-spacing: 0.1em;">Parteciperai all'evento?</label>
+                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-3" data-ro="Vei participa la eveniment?" style="letter-spacing: 0.1em;">Parteciperai all'evento?</label>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <label class="flex items-center justify-center p-4 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer hover:border-blue-300 text-sm font-medium text-stone-700 transition-all">
                         <input type="radio" name="Presenza" value="Sì, ci sarò!" required class="mr-2 accent-[#1e90ff]">
-                        Sì, con gioia!
+                        <span data-ro="Da, cu bucurie!">Sì, con gioia!</span>
                     </label>
                     <label class="flex items-center justify-center p-4 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer hover:border-blue-300 text-sm font-medium text-stone-500 transition-all">
                         <input type="radio" name="Presenza" value="No, purtroppo no" class="mr-2 accent-stone-400">
-                        Non potrò esserci
+                        <span data-ro="Nu voi putea fi prezent/ă">Non potrò esserci</span>
                     </label>
                 </div>
             </div>
                         <!-- Campo: Numero Partecipanti (Menu a discesa) -->
             <div>
-                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" style="letter-spacing: 0.1em;">Numero di persone(incluso me)</label>
+                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" data-ro="Numărul de persoane (inclusiv eu)" style="letter-spacing: 0.1em;">Numero di persone(incluso me)</label>
                 <div class="relative">
                     <select name="Numero Partecipanti" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm text-stone-900 appearance-none cursor-pointer">
-                        <option value="1" selected>1 (Solo io)</option>
-                        <option value="2">2 persone</option>
-                        <option value="3">3 persone</option>
-                        <option value="4">4 persone</option>
-                        <option value="5">5 persone</option>
-                        <option value="6">6 persone</option>
-                        <option value="7">7 persone</option>
+                        <option value="1" selected data-ro="1 (Doar eu)">1 (Solo io)</option>
+                        <option value="2" data-ro="2 persoane">2 persone</option>
+                        <option value="3" data-ro="3 persoane">3 persone</option>
+                        <option value="4" data-ro="4 persoane">4 persone</option>
+                        <option value="5" data-ro="5 persoane">5 persone</option>
+                        <option value="6" data-ro="6 persoane">6 persone</option>
+                        <option value="7" data-ro="7 persoane">7 persone</option>
                     </select>
                     <!-- Piccola freccetta estetica sulla destra del menu -->
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-400">
@@ -347,42 +423,114 @@
 
             <!-- Campo 4: Intolleranze -->
             <div>
-                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" style="letter-spacing: 0.1em;">Esigenze Alimentari / Note</label>
-                <textarea name="Note Alimentari" rows="3" placeholder="Intolleranze, celiachia, menu bambini..." class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900"></textarea>
+                <label class="block text-xs uppercase tracking-widest font-semibold text-stone-500 mb-2" data-ro="Cerințe Alimentare / Note" style="letter-spacing: 0.1em;">Esigenze Alimentari / Note</label>
+                <textarea name="Note Alimentari" rows="3" placeholder="Intolleranze, celiachia, menu bambini..." data-ro-placeholder="Intoleranțe, celiachie, meniu copii..." class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900"></textarea>
             </div>
 
             <!-- Campo 5: Playlist DJ (Richiesta 1-3 canzoni) -->
             <div class="pt-4 border-t border-stone-100">
-                <label class="block text-xs uppercase tracking-widest font-bold text-[#1e90ff] mb-2" style="letter-spacing: 0.1em;">🎵 Accendi la festa!</label>
-                <p class="text-xs text-stone-400 mb-4">Suggerisci da 1 a 3 canzoni che ti farebbero scendere in pista</p>
+                <label class="block text-xs uppercase tracking-widest font-bold text-[#1e90ff] mb-2" data-ro="🎵 Aprinde petrecerea!" style="letter-spacing: 0.1em;">🎵 Accendi la festa!</label>
+                <p class="text-xs text-stone-400 mb-4" data-ro="Sugerează 1-3 melodii care te-ar face să dansezi">Suggerisci da 1 a 3 canzoni che ti farebbero scendere in pista</p>
                 
                 <div class="space-y-3">
-                    <input type="text" name="Canzone 1" placeholder="1. Titolo e Artista" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
-                    <input type="text" name="Canzone 2" placeholder="2. Titolo e Artista (Opzionale)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
-                    <input type="text" name="Canzone 3" placeholder="3. Titolo e Artista (Opzionale)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
+                    <input type="text" name="Canzone 1" placeholder="1. Titolo e Artista" data-ro-placeholder="1. Titlu și Artist" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
+                    <input type="text" name="Canzone 2" placeholder="2. Titolo e Artista (Opzionale)" data-ro-placeholder="2. Titlu și Artist (Opțional)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
+                    <input type="text" name="Canzone 3" placeholder="3. Titolo e Artista (Opzionale)" data-ro-placeholder="3. Titlu și Artist (Opțional)" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e90ff] text-sm transition-all text-stone-900">
                 </div>
             </div>
             <!-- 🆕 Campo Privacy Obbligatorio!! (GDPR) -->
             <div class="pt-4 border-t border-stone-100 flex items-start space-x-3">
                 <input type="checkbox" name="Privacy" value="Accettata" required id="privacyCheck" class="mt-1 w-4 h-4 text-[#1e90ff] bg-stone-50 border-stone-200 rounded-sm focus:ring-[#1e90ff] accent-[#1e90ff] cursor-pointer">
-                <label for="privacyCheck" class="text-xs text-stone-500 leading-relaxed cursor-pointer select-none">
+                <label for="privacyCheck" class="text-xs text-stone-500 leading-relaxed cursor-pointer select-none" data-ro="Sunt de acord cu prelucrarea datelor mele personale în conformitate cu Regulamentul UE 2016/679 (GDPR). Datele vor fi utilizate exclusiv pentru organizarea nunții. Operator de date: Gianluca Maccione.">
                     Acconsento al trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR). 
                     I dati verranno utilizzati esclusivamente per l'organizzazione del matrimonio. Titolare del trattamento: Gianluca Maccione.
                 </label>
             </div>
             <!--====================================================================================== -->
             <!-- Pulsante invio -->
-            <button type="submit" class="w-full py-4 bg-stone-900 text-white text-xs uppercase tracking-widest font-semibold rounded-xl shadow-md hover:bg-[#1e90ff] transition-all duration-300 cursor-pointer" style="letter-spacing: 0.2em;">
+            <button type="submit" class="w-full py-4 bg-stone-900 text-white text-xs uppercase tracking-widest font-semibold rounded-xl shadow-md hover:bg-[#1e90ff] transition-all duration-300 cursor-pointer" data-ro="Trimite Confirmarea!" style="letter-spacing: 0.2em;">
                 Invia Conferma!
             </button>
         </form>
     </section> 
-        <script>
+
+    <script src="./js/i18n.js"></script>
+    <script>
+        // Base musicale: parte solo al tocco dell'ospite (gli smartphone bloccano l'autoplay con audio)
+        (function () {
+            var audio = document.getElementById('musicaSottofondo');
+            var btn = document.getElementById('musicToggle');
+            var iconOn = document.getElementById('musicIconOn');
+            var iconOff = document.getElementById('musicIconOff');
+            audio.volume = 0.5;
+
+            // Sblocco silenzioso: il primo tocco (anche quello con cui si inizia a scorrere)
+            // "abilita" l'audio per il resto della visita, così più avanti il play() automatico
+            // sulla sezione storia funziona anche se l'ospite non ha toccato nessun pulsante.
+            function sbloccaAudio() {
+                audio.play().then(function () {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }).catch(function () { /* niente di grave: resta comunque il pulsante manuale */ });
+                document.removeEventListener('touchstart', sbloccaAudio);
+                document.removeEventListener('pointerdown', sbloccaAudio);
+                document.removeEventListener('click', sbloccaAudio);
+            }
+            document.addEventListener('touchstart', sbloccaAudio, { once: true, passive: true });
+            document.addEventListener('pointerdown', sbloccaAudio, { once: true });
+            document.addEventListener('click', sbloccaAudio, { once: true });
+
+            btn.addEventListener('click', function () {
+                if (audio.paused) {
+                    audio.play().catch(function () {
+                        // Il file audio/sottofondo.mp3 non c'è ancora o il browser ha rifiutato: nessun errore bloccante
+                    });
+                } else {
+                    audio.pause();
+                }
+            });
+
+            audio.addEventListener('play', function () {
+                btn.classList.add('is-playing');
+                btn.setAttribute('aria-pressed', 'true');
+                iconOn.style.display = '';
+                iconOff.style.display = 'none';
+            });
+            audio.addEventListener('pause', function () {
+                btn.classList.remove('is-playing');
+                btn.setAttribute('aria-pressed', 'false');
+                iconOn.style.display = 'none';
+                iconOff.style.display = '';
+            });
+
+            // Avvio automatico quando l'ospite arriva a "La Nostra Storia".
+            // Funziona solo se ha già interagito con la pagina (regola dei browser);
+            // altrimenti il tentativo fallisce senza errori e resta il pulsante manuale.
+            var sezioneStoria = document.getElementById('la-nostra-storia');
+            if (sezioneStoria && 'IntersectionObserver' in window) {
+                var osservatore = new IntersectionObserver(function (voci) {
+                    voci.forEach(function (voce) {
+                        if (voce.isIntersecting && audio.paused) {
+                            audio.play().catch(function () { /* bloccato dal browser: nessun problema */ });
+                        }
+                    });
+                }, { threshold: 0.4 });
+                osservatore.observe(sezioneStoria);
+            }
+        })();
+
+        var TESTI_FORM = {
+            it: { invio: "Invio in corso...", invia: "Invia Conferma", siGrazie: "Conferma inviata con successo! Grazie, non vediamo l'ora di festeggiare e brindare insieme a te! 🎉", noGrazie: "Grazie per averci avvisato! Ci dispiace molto che tu non riesca a venire, ti manderemo sicuramente una foto della giornata! ❤️" },
+            ro: { invio: "Se trimite...", invia: "Trimite Confirmarea", siGrazie: "Confirmare trimisă cu succes! Mulțumim, abia așteptăm să sărbătorim și să ciocnim un pahar împreună cu tine! 🎉", noGrazie: "Mulțumim că ne-ai anunțat! Ne pare foarte rău că nu poți fi prezent/ă, îți vom trimite cu siguranță o fotografie din acea zi! ❤️" }
+        };
+        function linguaCorrente() { return document.documentElement.lang === 'ro' ? 'ro' : 'it'; }
+
         document.getElementById('weddingForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            var lang = linguaCorrente();
             const submitBtn = this.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
-            submitBtn.innerText = "Invio in corso...";
+            submitBtn.innerText = TESTI_FORM[lang].invio;
 
             // Cattura la risposta sulla presenza (Sì o No)
             const presenzaScelta = this.querySelector('input[name="Presenza"]:checked').value;
@@ -393,31 +541,28 @@
             })
             .then(res => res.json())
             .then(data => {
-                // 🪄 MESSAGGIO DEDICATO SE L'OSPITE VIENE
                 if (presenzaScelta.includes("Sì")) {
-                    alert('Conferma inviata con successo! Grazie, non vediamo l\'ora di festeggiare e brindare insieme a te! 🎉');
-                } 
-                // 🪄 MESSAGGIO DEDICATO SE L'OSPITE RIFIUTA
-                else {
-                    alert('Grazie per averci avvisato! Ci dispiace molto che tu non riesca a venire, ti manderemo sicuramente una foto della giornata! ❤️');
+                    alert(TESTI_FORM[lang].siGrazie);
+                } else {
+                    alert(TESTI_FORM[lang].noGrazie);
                 }
                 
                 this.reset();
                 submitBtn.disabled = false;
-                submitBtn.innerText = "Invia Conferma";
+                submitBtn.innerText = TESTI_FORM[lang].invia;
                 window.location.reload();
             })
             .catch(err => {
                 console.error(err);
                 // Fail-safe di cortesia in caso di ritardi di rete
                 if (presenzaScelta.includes("Sì")) {
-                    alert('Conferma inviata con successo! Grazie, non vediamo l\'ora di festeggiare insieme! 🎉');
+                    alert(TESTI_FORM[lang].siGrazie);
                 } else {
-                    alert('Grazie per averci avvisato! Ci dispiace che tu non possa esserci. ❤️');
+                    alert(TESTI_FORM[lang].noGrazie);
                 }
                 this.reset();
                 submitBtn.disabled = false;
-                submitBtn.innerText = "Invia Conferma";
+                submitBtn.innerText = TESTI_FORM[lang].invia;
                 window.location.reload();
             });
         });

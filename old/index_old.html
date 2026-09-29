@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benvenuti | Gianluca & Cristina</title>
+    
+    <!-- Collegamento al tuo file locale compilato (mantiene gli stessi stili) -->
+    <link href="./output.css" rel="stylesheet"> 
+
+    <!-- Google Fonts Premium -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+    </style>
+</head>
+<body class="bg-[#faf9f6] text-stone-800 antialiased overflow-hidden">
+
+    <!-- LANDING PAGE CONTAINER: Stesso sfondo e overlay della vecchia index -->
+    <header class="h-screen w-full flex flex-col items-center justify-center relative p-4 text-center bg-stone-900">
+        
+        <!-- Immagine di copertina identica con opacità originale -->
+        <img src="./images/copertina.jpg" alt="Fedi Gianluca e Cristina" class="absolute inset-0 w-full h-full object-cover z-0 opacity-30">
+        
+        <!-- Overlay fluido protettivo -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#faf9f6]/40 z-10"></div>
+        
+                <!-- CONTENUTO CENTRATO -->
+        <div class="relative z-20 max-w-xl w-full mx-auto flex flex-col items-center space-y-6 px-2">
+            
+             <!-- Intestazione elegante - MISURA PERFETTA -->
+                       <!-- Intestazione elegante - TUTTO SU UNA RIGA -->
+            <div class="space-y-2 w-full block">
+                <span class="text-xs md:text-sm uppercase tracking-widest font-bold text-amber-400 block" style="letter-spacing: 0.3em;">Il Nostro Matrimonio</span>
+                <h1 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-wide text-white block drop-shadow-xl whitespace-nowrap" style="font-family: 'Cormorant Garamond', serif;">
+                    Gianluca <span class="font-serif italic font-normal text-amber-400" style="font-family: 'Cormorant Garamond', serif;">&</span> Cristina
+                </h1>
+            </div>
+
+
+            <!-- CONTAINER DEL VIDEO: Ottimizzato per smartphone e PC -->
+            <div class="w-full border border-white/20 bg-black/40 backdrop-blur-md p-2 rounded-2xl shadow-2xl transition-all duration-300">
+                <div class="relative aspect-video w-full rounded-xl overflow-hidden bg-stone-950 shadow-inner">
+                    <video controls playsinline class="w-full h-full object-contain">
+                        <source src="welcome-video.mp4" type="video/mp4">
+                        Il tuo browser non supporta il tag video.
+                    </video>
+                </div>
+            </div>
+            
+            <!-- Messaggio sotto il video - MODIFICATO: colore text-white (bianco) e font più visibile -->
+            <p class="font-serif italic text-xl text-white max-w-sm leading-relaxed drop-shadow-md">
+                Guardate il nostro video messaggio prima di scoprire i dettagli del grande giorno
+            </p>
+
+            <!-- PULSANTE RAFFINATO PER ENTRARE NEL SITO -->
+            <div class="pt-2">
+                <a href="matrimonio.html" class="inline-flex items-center space-x-3 border border-[#1e90ff]/40 bg-white/90 backdrop-blur-sm px-8 py-3.5 rounded-xl font-bold tracking-wider text-[#1e90ff] shadow-xl hover:bg-[#1e90ff] hover:text-white hover:border-[#1e90ff] transition-all duration-300 uppercase text-xs">
+                    <span>Entra nel Sito</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                    </svg>
+                </a>
+            </div>
+
+        
+    </header>
+
+</body>
+</html>
